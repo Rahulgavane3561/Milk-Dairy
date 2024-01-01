@@ -1,0 +1,142 @@
+/* styles/Products.module.css */
+
+.products {
+    padding: 20px;
+  }
+  
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .product-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-details {
+    padding: 20px;
+  }
+  
+  .product-details h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .price {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+  
+  .old-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 10px;
+  }
+  
+  .discounted {
+    color: red;
+  }
+  
+  .reviews {
+    font-size: 1em;
+    color: #888;
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 250px; 
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px 8px 0 0; 
+  }
+  
+  .product-details {
+    padding: 15px;
+  }
+  
+  .product-name {
+    font-family: Arial, sans-serif;
+    font-size: 1.2em; 
+    margin-bottom: 10px;
+  }
+  
+  .price {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+  
+  .current-price {
+    margin-right: 10px;
+  }
+  
+  .discounted {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  .reviews {
+    color: #008000; 
+    font-size: 1.5em; 
+  }
+  
+  .star-icon {
+    margin-right: 2px; 
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #ffa500; 
+    color: #fff;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #ff8000;
+  }
+  
+  .arrow-icon {
+    margin-left: 5px; 
+  }
+  

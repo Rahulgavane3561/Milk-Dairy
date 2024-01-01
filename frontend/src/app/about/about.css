@@ -1,0 +1,245 @@
+.row{
+    justify-content: center;
+}
+  
+  .column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .about-section {
+    padding: 50px 250px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+    
+  }
+  .about-section h1{
+    margin-bottom: 30px;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  .button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .button:hover {
+    background-color: #555;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
+  /* ============================================================================================== */
+  
+  .container .row {
+    width: 100%; 
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+  }
+  
+  .col__3 {
+    width: calc(33.33% - 20px); 
+    
+
+    margin: 10px; 
+  }
+  
+  h1.heading {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 700;
+    font-family: Poppins, sans-serif;
+    margin-bottom: 10px;
+ }
+.our-email{
+    color: #ef0963;
+}
+ p.heading.p__color {
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 1.2;
+ }
+
+ .service__box {
+    border-radius: 10px;
+    width: 100%;
+    background-color: #191919;
+    padding: 55px;
+    transition: .4s ease;
+ }
+
+ .service__box:hover {
+    transform: translateY(5px);
+    background-image: linear-gradient(90deg, #f35b53, #b92c62);
+ }
+
+ .service__box:hover .icon {
+    color: #fff;
+ }
+
+ .service__box:hover p.service__text .p__color {
+          color: #fff !important;
+ }
+.service__text{
+    color: rgb(241, 238, 231);
+}
+ .icon {
+    font-size: 54px;
+    font-weight: 400;
+    margin-bottom: 13px;
+    display: inline-flex;
+    color: #f9004d;
+ }
+
+ p.service__text.p__color {
+    margin-bottom: 0;
+ }
+
+ h1.service__text {
+    font-size: 19px;
+    font-family: Poppins, sans-serif;
+    padding: 10px 0px;
+ }
+
+ @media only screen and (max-width: 1024px) {
+      .service__box {
+        padding: 32px;
+      }
+ }
+
+.row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 -10px; 
+  }
+  
+  .column {
+    width: calc(33.33% - 20px); 
+    margin: 10px; 
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+  }
+  
+  .about-section {
+    padding: 50px 20px; 
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+ 
+  @media screen and (max-width: 992px) {
+    .column {
+      width: calc(50% - 20px); 
+    }
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%; 
+      display: block;
+      margin: 10px 0; 
+    }
+    
+    .service__box {
+      padding: 32px; 
+    }
+  }
+ 
+  @media only screen and (max-width: 768px) {
+    .service__box {
+      padding: 20px; 
+    }
+  }
+  
+
+@media screen and (max-width: 1200px) {
+    .column {
+      width: calc(33.33% - 20px); 
+      margin: 10px; 
+    }
+    
+    .service__box {
+      padding: 40px; 
+    }
+  }
+  
+  
+  @media screen and (max-width: 992px) {
+    .column {
+      width: calc(50% - 20px); 
+    }
+    
+    .service__box {
+      padding: 32px; 
+    }
+  }
+  
+
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%; 
+      display: block;
+      margin: 10px 0; 
+    }
+    
+    .service__box {
+      padding: 20px; 
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .service__box {
+      padding: 20px; 
+    }
+  }
+  
+   

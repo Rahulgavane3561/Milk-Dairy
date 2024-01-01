@@ -1,0 +1,35 @@
+/* Home.module.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .supplyDetails,
+  .personalInfo,
+  .orders {
+    margin-bottom: 40px;
+  }
+  
+  .orders table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .orders th,
+  .orders td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .orders th {
+    background-color: #f2f2f2;
+  }
+  
