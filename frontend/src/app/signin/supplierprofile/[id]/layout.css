@@ -1,0 +1,63 @@
+.layout-container {
+  display: flex;
+  flex-direction: column; /* Make layout container vertically stacked */
+  min-height: 100vh; /* Ensure layout fills viewport height */
+}
+
+.sidebar {
+  width: 20%;
+  position: fixed;
+  background-color: #f0f0f0; /* Adjust as needed */
+  transition: transform 0.3s ease-in-out;
+  z-index: 4;
+}
+.main-content {
+  width: 80%;
+  margin-left: 20%;
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+/* Small screen adjustments */
+.layout-container.small-screen .sidebar {
+  display: none;
+  top: -100%;
+  transform: translateY(
+    -100%
+  ); /* Hide sidebar by default (translate vertically) */
+}
+
+.layout-container.small-screen .main-content {
+  width: 100%; /* Main content takes full width */
+  margin-left: 0px;
+}
+
+.layout-container.small-screen .sidebar.open {
+  top: 20;
+  position: relative;
+  display: block;
+  width: 85%;
+  z-index: 999;
+  transform: translateY(0);
+  transition: transform 0.7s ease-in-out;
+}
+
+@media (max-width: 740px) {
+  .layout-container {
+    flex-direction: column;
+  }
+
+  .layout-container .main-content {
+    width: 100%;
+    z-index: 1;
+  }
+  .main-content.small-screen {
+    margin-top: 0;
+  }
+}
+
+.toggle-btn {
+  /* Position and style the button as desired */
+}

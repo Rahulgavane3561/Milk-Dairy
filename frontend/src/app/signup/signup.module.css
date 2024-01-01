@@ -1,0 +1,66 @@
+/* Signup.module.css */
+.mainback{  
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(-65deg, rgb(236, 112, 112),rgb(74, 123, 74),rgb(130, 130, 232),rgb(227, 227, 125));
+    justify-content: center;
+    align-items: center;
+    justify-content: center; 
+
+}
+.signupContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+
+
+}
+
+.signupForm {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  padding: 20px 0px 20px 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.input {
+  width: 60%;
+}
+.leftSide,
+.rightSide {
+  flex: 1;
+
+  gap: 15px;
+  padding: 10px 0px 10px 3px;
+}
+
+.leftSide label {
+
+  height: 70px;
+}
+
+.rightSide label {
+  height: 70px;
+}
+
+.submitButton {
+  width: 80%;
+  padding: 10px;
+  margin-top: 0px;
+  background-color: #008000; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #006400; 
+}
