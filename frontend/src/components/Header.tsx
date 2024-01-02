@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
+import { FaExpandArrowsAlt } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import styles from './Header.module.css';
@@ -13,6 +14,20 @@ function Header() {
   const handleToggle = () => {
     setToggleMenu(!toggleMenu);
   };
+
+  // full screnn 
+  const toggleFullScreen = () => {
+   
+    var element = document.documentElement;
+
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) { /* Safari */
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) { /* IE11 */
+      element.msRequestFullscreen();
+    }
+  }
 
   return (
     <>
@@ -26,6 +41,10 @@ function Header() {
             <p style={{ color: 'red' }}></p>
           </span>
         </Link>
+        <i onClick={toggleFullScreen} style={{ color: 'white' }}>
+  <FaExpandArrowsAlt size={20} />
+</i>
+
 
         <ul className={`${styles.menu} ${toggleMenu ? styles.active : ''} ${styles.center}`}>
           <li>

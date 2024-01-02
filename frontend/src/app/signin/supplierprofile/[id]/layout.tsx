@@ -28,11 +28,11 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <div className={`layout-container ${isSmallScreen ? 'small-screen' : ''}`}>
-      <nav className="sb-topnav position-fixed top-60 w-100  navbar navbar-expand navbar-dark bg-dark" style={{ paddingLeft: '20%', zIndex: '2', backgroundColor: '#161a35' }}>
+      <nav className="sb-topnav position-fixed top-60 w-100  navbar navbar-expand navbar-dark bg-dark" style={{ zIndex: '8', backgroundColor: '#161a35' }}>
         {/* <!-- Navbar Brand--> */}
-        <a className="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a className="navbar-brand " href="index.html">Welcome to Dashboard</a>
         {/* <!-- Sidebar Toggle--> */}
-        <button onClick={toggleSidebar} className="btn btn-link btn-sm order-1 order-md-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i className="fas fa-bars"></i></button>
+        {isSmallScreen && (<button onClick={toggleSidebar} className="btn btn-link btn-sm order-1 order-md-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i className="fas fa-bars"></i></button>)}
         {/* <!-- Navbar Search--> */}
         <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
           <div className="input-group">
@@ -45,10 +45,10 @@ const Layout: React.FC = ({ children }) => {
           <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></a>
             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li><a className="dropdown-item" href="#!"><FaUserCog/> Settings</a></li>
-              <li><a className="dropdown-item" href="#!"><FaHistory/>Activity Log</a></li>
+              <li><a className="dropdown-item" href="#!"><FaUserCog /> Settings</a></li>
+              <li><a className="dropdown-item" href="#!"><FaHistory />Activity Log</a></li>
               <li><hr className="dropdown-divider" /></li>
-              <li><a className="dropdown-item" href="#!"><FaSignOutAlt/> Logout</a></li>
+              <li><a className="dropdown-item" href="#!"><FaSignOutAlt /> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -61,9 +61,25 @@ const Layout: React.FC = ({ children }) => {
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <Sidebar />
       </div>
-      <main style={{ zIndex: '1' }} className={` main-content ${isSmallScreen && !isSidebarOpen ? 'small-screen' : ''}`}>
+      <main
+        style={{ zIndex: '1', position: 'relative' }} // Set position to relative
+        className={`main-content ${isSmallScreen && !isSidebarOpen ? 'small-screen' : ''}`}
+      >
 
         {children}
+        {isSidebarOpen && isSmallScreen && (
+          <div
+            className="overlay"
+            style={{
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(87, 80, 80, 0.3)', // Adjust the color and opacity as needed
+            }}
+          />
+        )}
       </main>
     </div>
   );

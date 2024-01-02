@@ -9,11 +9,13 @@
   position: fixed;
   background-color: #f0f0f0; /* Adjust as needed */
   transition: transform 0.3s ease-in-out;
-  z-index: 4;
+  z-index: 9;
 }
 .main-content {
   width: 80%;
+  position: relative;
   margin-left: 20%;
+  padding: 10px 0px;
 }
 
 .sidebar.hidden {
@@ -31,17 +33,21 @@
 
 .layout-container.small-screen .main-content {
   width: 100%; /* Main content takes full width */
-  margin-left: 0px;
+  margin:5px 0px ;
 }
 
 .layout-container.small-screen .sidebar.open {
-  top: 20;
+  margin-top: 55px;
   position: relative;
   display: block;
   width: 85%;
-  z-index: 999;
+  z-index: 5;
   transform: translateY(0);
   transition: transform 0.7s ease-in-out;
+}
+.sb-topnav{
+  padding-left: 20%;
+  z-index: 500;
 }
 
 @media (max-width: 740px) {
@@ -53,11 +59,16 @@
     width: 100%;
     z-index: 1;
   }
+  .navbar-brand{
+    width: 100%;
+    padding-left: 0px;
+  }
+  .sb-topnav{
+    padding-left: 0px;
+  }
   .main-content.small-screen {
     margin-top: 0;
   }
 }
 
-.toggle-btn {
-  /* Position and style the button as desired */
-}
+
