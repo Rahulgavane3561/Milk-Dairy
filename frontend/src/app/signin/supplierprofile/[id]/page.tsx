@@ -2,7 +2,7 @@
 
 import "./sy.css"
 
-import { FaEnvelope, FaIdCard, FaPhone, FaUser } from 'react-icons/fa';
+import { FaCalendarAlt, FaDollarSign, FaEnvelope, FaExclamationCircle, FaGlassWhiskey, FaIdCard, FaMoneyBillAlt, FaMoneyCheckAlt, FaPhone, FaShoppingCart, FaTint, FaUser } from 'react-icons/fa';
 
 import Image from 'next/image'
 import React from 'react'
@@ -23,7 +23,7 @@ function page() {
         <div className="row z-index-1">
           <div className="col-xl-3 col-md-6">
             <div className="card bg-primary text-white mb-4">
-              <div className="card-body">supplied milk</div>
+              <div className="card-body">    <FaGlassWhiskey /> supplied milk</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
                 <span className="small text-white stretched-link" href="#">80 ltr</span>
               </div>
@@ -31,7 +31,7 @@ function page() {
           </div>
           <div className="col-xl-3 col-md-6">
             <div className="card bg-warning text-white mb-4">
-              <div className="card-body">Avg Fat content</div>
+              <div className="card-body">    <FaTint />Avg Fat content</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
                 <span className="small text-white stretched-link" href="#">8</span>
                
@@ -40,7 +40,7 @@ function page() {
           </div>
           <div className="col-xl-3 col-md-6">
             <div className="card bg-success text-white mb-4">
-              <div className="card-body">amount</div>
+              <div className="card-body">  <FaDollarSign />amount</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
                 <span className="small text-white stretched-link" href="#">8000</span>
               </div>
@@ -48,7 +48,7 @@ function page() {
           </div>
           <div className="col-xl-3 col-md-6">
             <div className="card bg-danger text-white mb-4">
-              <div className="card-body">Year-2024</div>
+              <div className="card-body">    <FaCalendarAlt /> Year-2024</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
                 <span className="small text-white stretched-link" href="#">month-janualry</span>
               </div>
@@ -88,22 +88,22 @@ function page() {
                         <div className="col-sm-6 b-r-default p-b-20 p-t-20">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-0">
-                              <i className="far fa-user text-c-purple f-24"></i>
+                            <FaMoneyBillAlt /> 
                             </div>
                             <div className="col-8 p-0">
-                              <h5>4000</h5>
-                              <p className="text-muted m-b-0">Janaury/2024</p>
+                              <h5>10000</h5>
+                              <p className="text-muted m-b-0">Advance</p>
                             </div>
                           </div>
                         </div>
                         <div className="col-sm-6 p-b-20 p-t-20">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-r-0">
-                              <i className="fas fa-volume-down text-c-green f-24"></i>
+                            <FaMoneyCheckAlt /> 
                             </div>
                             <div className="col-8 p-l-0">
-                              <h5>100000</h5>
-                              <p className="text-muted m-b-0">2023</p>
+                              <h5>6000</h5>
+                              <p className="text-muted m-b-0">pending</p>
                             </div>
                           </div>
                         </div>
@@ -112,22 +112,22 @@ function page() {
                         <div className="col-sm-6 p-b-20 p-t-20 b-r-default">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-r-0">
-                              <i className="far fa-file-alt text-c-red f-24"></i>
+                            <FaShoppingCart />
                             </div>
                             <div className="col-8 p-l-0">
-                              <h5>worth</h5>
-                              <p className="text-muted m-b-0">6000</p>
+                              <h5>2000</h5>
+                              <p className="text-muted m-b-0">feed cost</p>
                             </div>
                           </div>
                         </div>
                         <div className="col-sm-6 p-b-20 p-t-20">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-r-0">
-                              <i className="far fa-envelope-open text-c-blue f-24"></i>
+                            <FaExclamationCircle /> 
                             </div>
                             <div className="col-8 p-l-0">
-                              <h5>120</h5>
-                              <p className="text-muted m-b-0">Mails</p>
+                              <h5>20</h5>
+                              <p className="text-muted m-b-0">pending</p>
                             </div>
                           </div>
                         </div>
@@ -187,7 +187,7 @@ function page() {
                                 </div>
                               </td>
                               <td className="text-right">
-                                <h6 className="f-w-700">$78.001<i className="fas fa-level-down-alt text-c-red m-l-10"></i></h6>
+                                <h6 className="f-w-700"><i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
                               </td>
                             </tr>
                             <tr>
@@ -200,7 +200,7 @@ function page() {
                                 </div>
                               </td>
                               <td className="text-right">
-                                <h6 className="f-w-700">$89.051<i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
+                                <h6 className="f-w-700"><i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
                               </td>
                             </tr>
                             <tr>
@@ -213,7 +213,7 @@ function page() {
                                 </div>
                               </td>
                               <td className="text-right">
-                                <h6 className="f-w-700">$89.051<i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
+                                <h6 className="f-w-700"><i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
                               </td>
                             </tr>
                             <tr>
@@ -227,7 +227,7 @@ function page() {
                                 </div>
                               </td>
                               <td className="text-right">
-                                <h6 className="f-w-700">$89.051<i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
+                                <h6 className="f-w-700"><i className="fas fa-level-up-alt text-c-green m-l-10"></i></h6>
                               </td>
                             </tr>
                           </tbody>

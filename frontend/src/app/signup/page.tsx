@@ -43,7 +43,7 @@ export default function Registration() {
     const handleImageChange = (e) => {
         setFormData({
             ...formData,
-            image: e.target.files[0], 
+            image: e.target.files[0],
         });
     };
 
@@ -68,11 +68,11 @@ export default function Registration() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-  
+
         const validationErrors = validateFormData(formData);
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-            return; 
+            return;
         } else {
             const form = new FormData();
             form.append('name', formData.name);
@@ -95,7 +95,7 @@ export default function Registration() {
 
                     router.push(`../signup/otp_varify/${userId}`);
 
-                  
+
                     resetForm();
 
                 })
@@ -207,7 +207,7 @@ export default function Registration() {
                                     Aadhar Number:
                                     <input className={styles.input} style={{ marginLeft: '0px' }} type="text" name="adharNumber" value={formData.adharNumber} onChange={handleChange} />
                                     {errors.adharNumber && <span style={{ color: 'red', marginLeft: '70px' }}>{errors.adharNumber}</span>}
-                                </label><br/>
+                                </label><br />
                                 {responseError && <span style={{ color: 'red' }}>{responseError}</span>}
 
                             </div>
@@ -229,7 +229,7 @@ export default function Registration() {
 
                                 <label>
                                     Photo:
-                                    <input className={styles.input} style={{  marginLeft: '70px' }} type="file" name="photo" accept="image/*" onChange={handleImageChange} />
+                                    <input className={styles.input} style={{ marginLeft: '70px' }} type="file" name="photo" accept="image/*" onChange={handleImageChange} />
                                 </label>
                                 <label>
                                     Password:
@@ -252,7 +252,7 @@ export default function Registration() {
 
 
                             </div>
-                        </div> 
+                        </div>
                     </div>
 
 

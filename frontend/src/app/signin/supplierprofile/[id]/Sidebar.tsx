@@ -14,8 +14,8 @@ const Sidebar = () => {
 
   const menuItems = [
     { href: '#home', text: 'Home', icon: <BsHouseFill /> },
-    { href: '#dashboard', text: 'Edit Profile', icon: <BsPencilSquare /> },
-    { href: '#orders', text: 'My Orders', icon: <BsClipboardCheck /> },
+    { href: '/signin/supplierprofile/4/components/Edit_profile', text: 'Edit Profile', icon: <BsPencilSquare /> },
+    { href: '/signin/supplierprofile/4/components/My_orders', text: 'My Orders', icon: <BsClipboardCheck /> },
     { href: '#customers', text: 'My Milk Supply', icon: <BsDropletHalf /> },
     { href: '#products', text: 'Bills and payment', icon: <BsCreditCard /> },
   ];

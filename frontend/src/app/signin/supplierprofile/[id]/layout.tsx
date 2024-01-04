@@ -7,6 +7,7 @@ import { FaHistory, FaSignOutAlt, FaUserCog } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
 import Sidebar from './Sidebar';
+import { height } from '@fortawesome/free-solid-svg-icons/fa0';
 
 const Layout: React.FC = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -65,6 +66,7 @@ const Layout: React.FC = ({ children }) => {
         style={{ zIndex: '1', position: 'relative' }} // Set position to relative
         className={`main-content ${isSmallScreen && !isSidebarOpen ? 'small-screen' : ''}`}
       >
+
 
         {children}
         {isSidebarOpen && isSmallScreen && (
