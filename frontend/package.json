@@ -19,6 +19,8 @@
     "emailjs-com": "^3.2.0",
     "fast-two-sms": "^3.0.0",
     "jquery": "^3.7.1",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "next": "14.0.3",
     "nodemon": "^3.0.2",
     "popper.js": "^1.16.1",

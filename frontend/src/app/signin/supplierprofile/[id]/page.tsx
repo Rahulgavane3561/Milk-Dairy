@@ -4,17 +4,25 @@ import "./sy.css"
 
 import { FaCalendarAlt, FaDollarSign, FaEnvelope, FaExclamationCircle, FaGlassWhiskey, FaIdCard, FaMoneyBillAlt, FaMoneyCheckAlt, FaPhone, FaShoppingCart, FaTint, FaUser } from 'react-icons/fa';
 
+import Cookies from 'js-cookie';
 import Image from 'next/image'
 import React from 'react'
+import { jwtDecode } from 'jwt-decode';
 import styles from "./supplerprofile.module.css"
 
 function page() {
+  function sum() {
+    const token = Cookies.get('token');
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.id;
+    alert(userId);
+  }
 
   return (
     <div className={styles.main}>
 
       <div className='p-4'>
-        <h1 className="mt-4">Dashboard</h1>
+        <h1 className="mt-4" onClick={sum}>Dashboard</h1>
         <ol className="breadcrumb mb-4">
           <li className="breadcrumb-item active">current week status</li>
         </ol>
@@ -34,7 +42,7 @@ function page() {
               <div className="card-body">    <FaTint />Avg Fat content</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
                 <span className="small text-white stretched-link" href="#">8</span>
-               
+
               </div>
             </div>
           </div>
@@ -88,7 +96,7 @@ function page() {
                         <div className="col-sm-6 b-r-default p-b-20 p-t-20">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-0">
-                            <FaMoneyBillAlt /> 
+                              <FaMoneyBillAlt />
                             </div>
                             <div className="col-8 p-0">
                               <h5>10000</h5>
@@ -99,7 +107,7 @@ function page() {
                         <div className="col-sm-6 p-b-20 p-t-20">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-r-0">
-                            <FaMoneyCheckAlt /> 
+                              <FaMoneyCheckAlt />
                             </div>
                             <div className="col-8 p-l-0">
                               <h5>6000</h5>
@@ -112,7 +120,7 @@ function page() {
                         <div className="col-sm-6 p-b-20 p-t-20 b-r-default">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-r-0">
-                            <FaShoppingCart />
+                              <FaShoppingCart />
                             </div>
                             <div className="col-8 p-l-0">
                               <h5>2000</h5>
@@ -123,7 +131,7 @@ function page() {
                         <div className="col-sm-6 p-b-20 p-t-20">
                           <div className="row align-items-center text-center">
                             <div className="col-4 p-r-0">
-                            <FaExclamationCircle /> 
+                              <FaExclamationCircle />
                             </div>
                             <div className="col-8 p-l-0">
                               <h5>20</h5>

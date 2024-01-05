@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const suppliersigninRoutes = require('./api/temp_supplier_register');
 const supplierotpverify = require('./api/otpverify')
+const supplier_authentications = require('./api/supplier_login')
 // const otherRoutes = require('./api/otherRoutes');
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.static('public'));
 
 app.use('/api/supplie', suppliersigninRoutes);
 app.use('/api/supplie', supplierotpverify);
+app.use('/api/supplier', supplier_authentications);
 
 
 app.listen(PORT, () => {

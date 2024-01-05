@@ -5,22 +5,22 @@ import React from 'react';
 
 function OrderDetails() {
   const orders = [
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50, status: 'Delivered', collected: true },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
+    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
     // Add more order details as needed
   ];
   const totalQuantity = orders.reduce((total, order) => total + order.quantity, 0);
@@ -32,14 +32,14 @@ function OrderDetails() {
       <div style={{ overflow: 'auto', maxHeight: 'calc(100vh - 40vh)' }}>
         <Table striped bordered hover responsive>
           <thead>
-            <tr>
+            <tr  style={{backgroundColor:'purple'}}>
               <th>#</th>
               <th><FaShoppingCart /> Product Name</th>
               <th><FaClipboardList /> Quantity</th>
               <th><FaCalendarAlt /> Date</th>
               <th><FaMoneyBillWave /> Amount</th>
               <th>Collected</th>
-              <th><FaCheckCircle /> Status</th>
+              <th><FaCheckCircle /> Reciept</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +51,7 @@ function OrderDetails() {
                 <td>{order.date}</td>
                 <td>{order.amount}</td>
                 <td>{order.collected ? 'Yes' : 'No'}</td>
-                <td>{order.status}</td>
+                <td><button>Get reciept</button></td>
               </tr>
             ))}
           </tbody>
