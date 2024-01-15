@@ -1,0 +1,25 @@
+.text-start{
+    color: gray;
+    font-size: 6;
+}
+@media (max-width: 800px) {
+    .main{
+        width: 100%;
+    }
+  }
+  .receipt-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(143, 245, 236);
+    /* background-color: #3498db; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .receipt-button:hover {
+    background-color: #2980b9;
+  }
+  

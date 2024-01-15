@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { con, upload } = require('../common/dbconnection');
 const bcrypt = require('bcrypt');
-const { sendSMS } = require('../utils/sendmessage');
+const { sendSMS } = require('../twilio');
+
 
 router.post('/tempsupplierregister', upload.single('image'), async (req, res) => {
-    console.log("Goting")
     const { name, email, phone, address, bankAccount, ifscCode, adharNumber, password } = req.body;
     const image = req.file ? req.file.filename : null;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,7 +44,7 @@ router.post('/tempsupplierregister', upload.single('image'), async (req, res) =>
                 const recipientNumber = '+91' + phone; // Assuming phone number format is '+918105356165'
                 const otpMessage = `Your OTP for registration is: ${otp}`;
                 try {
-                    await sendSMS(recipientNumber, otpMessage);
+                   sendSMS(recipientNumber, otpMessage);
                     console.log('OTP sent successfully to', recipientNumber);
                 } catch (error) {
                     console.error('Failed to send OTP:', error);

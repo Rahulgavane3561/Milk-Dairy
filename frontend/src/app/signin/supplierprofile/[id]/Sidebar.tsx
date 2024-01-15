@@ -27,7 +27,7 @@ const Sidebar = () => {
         { href: `/signin/supplierprofile/${userId}/components/Edit_profile`, text: 'Edit Profile', icon: <BsPencilSquare /> },
         { href: `/signin/supplierprofile/${userId}/components/My_orders`, text: 'My Orders', icon: <BsClipboardCheck /> },
         { href: `/signin/supplierprofile/${userId}/components/Milk_supplied`, text: 'My Milk Supply', icon: <BsDropletHalf /> },
-        { href: '#product', text: 'Bills and payment', icon: <BsCreditCard /> },
+        { href: `/signin/supplierprofile/${userId}/components/Payment`, text: 'Bills and payment', icon: <BsCreditCard /> },
       ];
 
       setMenuItems(generatedMenuItems);
@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   const userProfile = {
     name: 'John Doe',
-    profileImage: 'https://picsum.photos/200/300', // Replace with the actual image path
+    profileImage: '/backa.jpg', // Replace with the actual image path
   };
   const logOut = () => {
     Cookies.remove("token");

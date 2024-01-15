@@ -2,33 +2,38 @@
 
 import { useEffect, useState } from 'react';
 
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+
 const MilkDetails = () => {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    // Function to generate random table values
-    const generateRandomTableValues = () => {
-      const data = [];
-      for (let i = 0; i < 10; i++) {
-        const rowData = {
-          collected_date: `2024-01-${Math.floor(Math.random() * 30) + 1}`,
-          fat_content: (Math.random() * 5).toFixed(2),
-          quantity_liter: (Math.random() * 20).toFixed(2),
-          collection_time: Math.random() > 0.5 ? 'morning' : 'evening',
-          amount: (Math.random() * 100).toFixed(2),
-        };
-        data.push(rowData);
-      }
-      return data;
-    };
 
-    // Set initial table data
-    const initialData = generateRandomTableValues();
-    setTableData(initialData);
+    // Fetch data from backend when component mounts
+    fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const token = Cookies.get('token');
+      const decodedToken = jwtDecode(token);
+      const supplierId = decodedToken.id;
+      // Make a GET request to your Node.js backend endpoint
+      const queryParams = `?fromDate=${fromDate}&toDate=${toDate}`;
+
+      const response = await axios.get(`http://localhost:8086/api/supplier/milkCollectionData/${supplierId}${queryParams}`); // Replace with your endpoint
+
+      // Assuming response.data contains the fetched data from backend
+      setTableData(response.data);
+    } catch (error) {
+      // Handle error
+      console.error('Error fetching data:', error);
+    }
+  };
   const handleFromDateChange = (e) => {
     setFromDate(e.target.value);
     // Implement filtering based on 'from' date
@@ -39,12 +44,23 @@ const MilkDetails = () => {
     // Implement filtering based on 'to' date
   };
 
+  const formatDate = (originalDate) => {
+    const date = new Date(originalDate);
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+    return formattedDate;
+  };
+
+  const handleFilter = () => {
+    // Trigger fetching data when the Filter button is clicked
+    fetchData();
+  };
+
   return (
     <div className='p-4'>
-      <h2>History</h2>
-      <div className='row'>
+
+      <div className='row mb-3'>
         <div className="col-md-5">
-          <label htmlFor="fromDate" className="form-label">From Date:</label>
+          <label htmlFor="fromDate" className="form-label">From :</label>
           <input
             type="date"
             className="form-control"
@@ -55,7 +71,7 @@ const MilkDetails = () => {
         </div>
 
         <div className="col-md-5">
-          <label htmlFor="toDate" className="form-label">To Date:</label>
+          <label htmlFor="toDate" className="form-label">To :</label>
           <input
             type="date"
             className="form-control"
@@ -65,12 +81,13 @@ const MilkDetails = () => {
           />
         </div>
         <div className='col-md-2'>
-          <button className="btn btn-primary">Filter</button>
+          <button className="btn btn-success mt-1" style={{ width: '80%' }} onClick={handleFilter}>Filter</button>
         </div>
       </div>
 
-      <table className="table table-bordered table-striped">
-        <thead className="bg-primary text-white">
+      
+      <table className="table  table-striped">
+        <thead className="bs-yellow text-white ">
           <tr>
             <th>Collected Date</th>
             <th>Fat Content</th>
@@ -81,8 +98,8 @@ const MilkDetails = () => {
         </thead>
         <tbody>
           {tableData.map((row, index) => (
-            <tr key={index}>
-              <td>{row.collected_date}</td>
+            <tr key={index} style={{ backgroundColor: 'purple', color: 'white' }}>
+              <td>{formatDate(row.collected_date)}</td>
               <td>{row.fat_content}</td>
               <td>{row.quantity_liter}</td>
               <td>{row.collection_time}</td>
@@ -91,6 +108,7 @@ const MilkDetails = () => {
           ))}
         </tbody>
       </table>
+
     </div>
   );
 };

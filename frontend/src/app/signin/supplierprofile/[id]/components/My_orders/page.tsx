@@ -1,75 +1,113 @@
-import { Container, Table } from 'react-bootstrap'; // Assuming you have installed react-bootstrap
-import { FaCalendarAlt, FaCheckCircle, FaClipboardList, FaMoneyBillWave, FaShoppingCart } from 'react-icons/fa'; // Import icons from react-icons
+"use client"
 
+import './styleorder.css'
+
+import { Container, Table } from 'react-bootstrap'; // Assuming you have installed react-bootstrap
+import { FaCalendarAlt, FaCheckCircle, FaCircle, FaClipboardList, FaMoneyBillWave, FaShoppingCart, FaTimesCircle } from 'react-icons/fa'; // Import icons from react-icons
+import { useEffect, useState } from 'react';
+
+import Cookies from 'js-cookie';
+import Image from 'next/image';
 import React from 'react';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 function OrderDetails() {
-  const orders = [
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    { id: 1, productName: 'Product A', quantity: 2, date: '2023-12-15', amount: 50,  },
-    // Add more order details as needed
-  ];
-  const totalQuantity = orders.reduce((total, order) => total + order.quantity, 0);
-  const totalAmount = orders.reduce((total, order) => total + order.amount, 0);
+
+  const router = useRouter();
+
+  const handleReceiptClick = (saleId) => {
+    // Navigate to the receipt page for the clicked saleId
+    alert(saleId)
+    router.push(`./My_orders/get_reciept/${saleId}}`);
+  };
+
+
+  const [salesData, setSalesData] = useState([]);
+  let supplierId = null;
+
+  useEffect(() => {
+
+    const token = Cookies.get('token');
+    const decodedToken = jwtDecode(token);
+    supplierId = decodedToken.id;
+
+
+    // Fetch sales data using Axios
+    axios.get(`http://localhost:8086/api/supplier/sales/${supplierId}`)
+      .then((response) => {
+        setSalesData(response.data);
+      })
+      .catch((error) => {
+        alert("error")
+        console.error('Error fetching sales data:', error);
+      });
+  }, [supplierId]);
+
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   return (
-    <Container className='p-4'>
-      <h2>My Orders</h2>
-      <div style={{ overflow: 'auto', maxHeight: 'calc(100vh - 40vh)' }}>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr  style={{backgroundColor:'purple'}}>
-              <th>#</th>
-              <th><FaShoppingCart /> Product Name</th>
-              <th><FaClipboardList /> Quantity</th>
-              <th><FaCalendarAlt /> Date</th>
-              <th><FaMoneyBillWave /> Amount</th>
-              <th>Collected</th>
-              <th><FaCheckCircle /> Reciept</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order, index) => (
-              <tr key={order.id}>
-                <td>{index + 1}</td>
-                <td>{order.productName}</td>
-                <td>{order.quantity}</td>
-                <td>{order.date}</td>
-                <td>{order.amount}</td>
-                <td>{order.collected ? 'Yes' : 'No'}</td>
-                <td><button>Get reciept</button></td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
-      <div style={{ marginTop: 'auto' }}>
-        <Table striped bordered hover responsive>
-          <tbody>
-            <tr>
-              <th style={{ width: '50%', fontWeight: 'bold' }}><i className="fas fa-cubes"></i>Total Quantity:{totalQuantity}</th>
-              <th style={{ width: '50%', fontWeight: 'bold' }}><i className="fas fa-money-bill-wave"></i> Total Amount:{totalAmount}</th>
-            
-            </tr>
+    <div className="main p-4">
+      <div className="mt-2">
+        <div className="container mt-4 p-4 rounded shadow-sm bg-gray">
+          {salesData.map((sale, index) => (
+            <div key={index} className="row mb-3" style={{ border: 'none', padding: '15px', transition: '0.3s', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+              <div className="col-4 col-sm-2">
+                {/* Render image dynamically */}
+                <Image
+                  className="img-fluid rounded-start"
+                  src={`/Productimage/${sale.image_link}`}
+                  alt={sale.product_name}
+                  height={100}
+                  width={100}
+                />
+              </div>
+              <div className="col-6 col-sm-4">
+                <p className="mb-1 font-weight-bold text-black">
+                  {sale.product_name}
+                </p>
+                <p className="mb-1">Quantity: {sale.quantity_sold}</p>
+              </div>
+              <div className="col-6 col-sm-2 text-center">
+                <p className="mb-1">{sale.total_amount}</p>
+                <button
+                  className="receipt-button"
+                  onClick={() => handleReceiptClick(sale.sale_id)}
+                >
+                  Get Receipt
+                </button>
 
-          </tbody>
-        </Table>
+              </div>
+              <div className="col-6 col-sm-4 text-end">
+                <p className="mb-1">
+                  <FaCircle color="green" size={12} />
+                  <span style={{ marginLeft: "10px" }}>
+                    Ordered on {formatDate(sale.sale_date)}
+                  </span>
+                </p>
+                <p className="mb-0">
+                  {sale.status_collected === "collected" ? (
+                    <FaCheckCircle style={{ color: "green", marginRight: "5px" }} />
+                  ) : (
+                    <FaTimesCircle style={{ color: "red", marginRight: "5px" }} />
+                  )}
+                  {sale.status_collected}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </Container>
+    </div>
+
   );
 }
 

@@ -4,6 +4,10 @@ const cookieParser = require('cookie-parser');
 const suppliersigninRoutes = require('./api/temp_supplier_register');
 const supplierotpverify = require('./api/otpverify')
 const supplier_authentications = require('./api/supplier_login')
+const supplier_orders = require('./api/get_supplier_product')
+const milk_history = require('./api/get_milk_history')
+const milk_payment = require('./api/get_milk_payment')
+const advance_payment = require('./api/get_advance_details')
 // const otherRoutes = require('./api/otherRoutes');
 
 const app = express();
@@ -21,6 +25,11 @@ app.use(express.static('public'));
 app.use('/api/supplie', suppliersigninRoutes);
 app.use('/api/supplie', supplierotpverify);
 app.use('/api/supplier', supplier_authentications);
+app.use('/api/supplier',supplier_orders);
+app.use('/api/supplier',milk_history);
+app.use('/api/supplier',milk_payment);
+app.use('/api/supplier',advance_payment);
+
 
 
 app.listen(PORT, () => {
