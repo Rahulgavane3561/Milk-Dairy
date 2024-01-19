@@ -67,3 +67,27 @@
 .btn:hover {
   background-color: #93de8a; /* Change background color on hover */
 }
+/* Edit_profile.module.css */
+
+.historyContainer {
+  position: relative; /* Ensure the container is positioned relative for absolute positioning */
+}
+
+.successMessage {
+  position: absolute;
+  margin-top: -1%;
+  width: 100%;
+  background-color: #2a582a; /* Green background color */
+  color: #ffffff; /* White text color */
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.successMessage button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #ffffff;
+}

@@ -3,26 +3,100 @@
 import "./sy.css"
 
 import { FaCalendarAlt, FaDollarSign, FaEnvelope, FaExclamationCircle, FaGlassWhiskey, FaIdCard, FaMoneyBillAlt, FaMoneyCheckAlt, FaPhone, FaShoppingCart, FaTint, FaUser } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 
 import Cookies from 'js-cookie';
+import Graph from './graph'
 import Image from 'next/image'
-import React from 'react'
+import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import styles from "./supplerprofile.module.css"
 
 function page() {
-  function sum() {
+
+  const dataa = [ 
+    { time: 1, amount: 10 },
+    { time: 2, amount: 20 },
+    { time: 3, amount: 15 },
+    { time: 4, amount: 25 },
+    { time: 5, amount: 30 },
+    // ... (more data)
+  ];
+
+  // const [collectionData, setCollectionData] = useState(null);
+  // const [supplierId, setsupplierId] = useState(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
     const token = Cookies.get('token');
     const decodedToken = jwtDecode(token);
-    const userId = decodedToken.id;
-    alert(userId);
+    const supplierId = decodedToken.id;
+    const fetchCollectionData = async () => {
+      try {
+        console.log('Fetching data...');
+        console.log(supplierId);
+        const response = await axios.get(`http://localhost:8086/api/supplie/milk-collection/${supplierId}`);
+        console.log(response);  // Log the response to inspect its structure
+        const jsonData = await response.data;
+        setData(jsonData);
+
+      } catch (error) {
+        console.error('Error fetching milk collection data:', error);
+      }
+    };
+
+    fetchCollectionData();
+    setCurrentDate(new Date());
+  }, []);
+
+
+  if (!data) {
+    return <p>Error fetching data</p>;
   }
+
+  const getFormattedDate = (date) => {
+    const year = date.getFullYear();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const day = date.getDate();
+
+    return `${month}-${day}`;
+  };
+
+  const getWeekRange = () => {
+    const dayOfMonth = currentDate.getDate();
+    let weekStart, weekEnd;
+
+    if (dayOfMonth <= 10) {
+      weekStart = 1;
+      weekEnd = 10;
+    } else if (dayOfMonth <= 20) {
+      weekStart = 11;
+      weekEnd = 20;
+    } else {
+      weekStart = 21;
+      // Adjust weekEnd based on the actual number of days in the month
+      weekEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    }
+
+    return `${weekStart} to ${weekEnd}`;
+  };
+
+  const decimalToPercentage = (decimalValue) => {
+    // Ensure the value is between 1 and 100
+    const clampedValue = Math.min(Math.max(decimalValue, 1), 100);
+    // Multiply by 10 to convert to percentage without decimal
+    return `${(clampedValue * 10).toFixed(0)}%`;
+  };
+
+
+
 
   return (
     <div className={styles.main}>
 
       <div className='p-4'>
-        <h1 className="mt-4" onClick={sum}>Dashboard</h1>
+        <h1 className="mt-4" >Dashboard</h1>
         <ol className="breadcrumb mb-4">
           <li className="breadcrumb-item active">current week status</li>
         </ol>
@@ -33,7 +107,7 @@ function page() {
             <div className="card bg-primary text-white mb-4">
               <div className="card-body">    <FaGlassWhiskey /> supplied milk</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
-                <span className="small text-white stretched-link" href="#">80 ltr</span>
+                <span className="small text-white stretched-link" href="#">{data.recentMilkCollections.totalQuantity}ltr</span>
               </div>
             </div>
           </div>
@@ -41,7 +115,7 @@ function page() {
             <div className="card bg-warning text-white mb-4">
               <div className="card-body">    <FaTint />Avg Fat content</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
-                <span className="small text-white stretched-link" href="#">8</span>
+                <span className="small text-white stretched-link" href="#">{data.recentMilkCollections.avgFatContent}</span>
 
               </div>
             </div>
@@ -50,15 +124,20 @@ function page() {
             <div className="card bg-success text-white mb-4">
               <div className="card-body">  <FaDollarSign />amount</div>
               <div className="card-footer d-flex align-items-center justify-content-between">
-                <span className="small text-white stretched-link" href="#">8000</span>
+                <span className="small text-white stretched-link" href="#">{data.recentMilkCollections.totalAmount}</span>
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-md-6">
+          <div className="col-xl-3 col-md-6 ">
             <div className="card bg-danger text-white mb-4">
-              <div className="card-body">    <FaCalendarAlt /> Year-2024</div>
+              <div className="card-body">
+                <FaCalendarAlt /> Year {currentDate.getFullYear()} {getFormattedDate(currentDate)}
+              </div>
               <div className="card-footer d-flex align-items-center justify-content-between">
-                <span className="small text-white stretched-link" href="#">month-janualry</span>
+
+                <span className="small text-white stretched-link" href="#">
+                  Week {getWeekRange()}
+                </span>
               </div>
             </div>
           </div>
@@ -99,7 +178,7 @@ function page() {
                               <FaMoneyBillAlt />
                             </div>
                             <div className="col-8 p-0">
-                              <h5>10000</h5>
+                              <h5>{data.advanceDetails.totalAdvanceAmount}</h5>
                               <p className="text-muted m-b-0">Advance</p>
                             </div>
                           </div>
@@ -110,7 +189,7 @@ function page() {
                               <FaMoneyCheckAlt />
                             </div>
                             <div className="col-8 p-l-0">
-                              <h5>6000</h5>
+                              <h5>{data.advanceDetails.pendingAmount}</h5>
                               <p className="text-muted m-b-0">pending</p>
                             </div>
                           </div>
@@ -189,7 +268,7 @@ function page() {
                               <td>
                                 <div className="d-inline-block align-middle">
                                   <span className="icon-container"><FaUser /></span>                                  <div className="d-inline-block">
-                                    <h6>Rahul</h6>
+                                    <h6>{data.supplierDetails.name}</h6>
                                     <p className="text-muted m-b-0">name</p>
                                   </div>
                                 </div>
@@ -202,7 +281,7 @@ function page() {
                               <td>
                                 <div className="d-inline-block align-middle">
                                   <span className="icon-container"><FaEnvelope /></span>                                  <div className="d-inline-block">
-                                    <h6>rahulgavne65@gmail.com</h6>
+                                    <h6>{data.supplierDetails.email}</h6>
                                     <p className="text-muted m-b-0">email</p>
                                   </div>
                                 </div>
@@ -215,7 +294,7 @@ function page() {
                               <td>
                                 <div className="d-inline-block align-middle">
                                   <span className="icon-container"><FaPhone /></span>                                  <div className="d-inline-block">
-                                    <h6>8105356165</h6>
+                                    <h6>{data.supplierDetails.phone}</h6>
                                     <p className="text-muted m-b-0">phone</p>
                                   </div>
                                 </div>
@@ -229,7 +308,7 @@ function page() {
                                 <div className="d-inline-block align-middle">
                                   <span className="icon-container"><FaIdCard /></span>
                                   <div className="d-inline-block">
-                                    <h6>5269-2388-5391</h6>
+                                    <h6>{data.supplierDetails.adhar_number}</h6>
                                     <p className="text-muted m-b-0">Adhar number</p>
                                   </div>
                                 </div>
@@ -254,7 +333,7 @@ function page() {
                       <div className="card text-center order-visitor-card bg-white border-0">
                         <div className="card-block">
                           <h6 className="m-b-0">Supplied Milk morning</h6>
-                          <h4 className="m-t-15 m-b-15"><i className="fa fa-arrow-down m-r-15 text-c-green"></i>7652 L</h4>
+                          <h4 className="m-t-15 m-b-15"><i className="fa fa-arrow-down m-r-15 text-c-green"></i>{data.morningMilkDetails.morningTotalQuantity} L</h4>
                           <p className="m-b-0">From 3 years</p>
                         </div>
                       </div>
@@ -263,7 +342,7 @@ function page() {
                       <div className="card text-center order-visitor-card border-0">
                         <div className="card-block">
                           <h6 className="m-b-0">Supplied Milk Evening</h6>
-                          <h4 className="m-t-15 m-b-15"><i className="fa fa-arrow-down m-r-15 text-c-green"></i>6325 L</h4>
+                          <h4 className="m-t-15 m-b-15"><i className="fa fa-arrow-down m-r-15 text-c-green"></i>{data.eveningMilkDetails.eveningTotalQuantity}  L</h4>
                           <p className="m-b-0">From 2 years</p>
                         </div>
                       </div>
@@ -274,9 +353,9 @@ function page() {
                       <div className="card bg-secondary text-white total-card border-0">
                         <div className="card-block">
                           <div className="text-left">
-                            <h4>8.9</h4>
+                            <h4>{data.morningMilkDetails.morningAvgFatContent}</h4>
                             <p className="m-0">Avg Fat content</p>
-                            <span className="label bg-c-red value-badges">89%</span>
+                            <span className="label bg-c-red value-badges">{decimalToPercentage(data.morningMilkDetails.morningAvgFatContent)}</span>
                           </div>
                         </div>
                       </div>
@@ -285,9 +364,9 @@ function page() {
                       <div className="card bg-warning text-white total-card border-0">
                         <div className="card-block">
                           <div className="text-left">
-                            <h4>6.7</h4>
+                            <h4>{data.eveningMilkDetails.eveningAvgFatContent}</h4>
                             <p className="m-0">Avg Fat content</p>
-                            <span className="label bg-c-green value-badges">67%</span>
+                            <span className="label bg-c-red value-badges">{decimalToPercentage(data.eveningMilkDetails.eveningAvgFatContent)}</span>
                           </div>
                         </div>
                       </div>
@@ -297,18 +376,18 @@ function page() {
                     <div className="col-md-6">
                       <div className="card text-center order-visitor-card border-0">
                         <div className="card-block">
-                          <h6 className="m-b-0">Avg amount</h6>
+                          <h6 className="m-b-0">Total amount</h6>
                           <h4 className="m-t-15 m-b-15">per<i className="fa fa-arrow-down m-r-15 text-c-red"></i> ltr</h4>
-                          <p className="m-b-0">56 </p>
+                          <p className="m-b-0">{data.combinedMilkDetails.totalAmount} </p>
                         </div>
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="card text-center order-visitor-card border-0">
                         <div className="card-block">
-                          <h6 className="m-b-0">current amount/ltr</h6>
+                          <h6 className="m-b-0">AVG amount/ltr</h6>
                           <h4 className="m-t-15 m-b-15">per<i className="fa fa-arrow-down m-r-15 text-c-green"></i> ltr</h4>
-                          <p className="m-b-0">65</p>
+                          <p className="m-b-0">{data.combinedMilkDetails.avgAmountPerLiter}</p>
                         </div>
                       </div>
                     </div>
@@ -318,42 +397,7 @@ function page() {
               </div>
               <div className="row">
 
-                <div className="col-xl-12">
-                  <div className="card proj-progress-card">
-                    <div className="card-block">
-                      <div className="row">
-                        <div className="col-xl-3 col-md-6">
-                          <h6>Published Project</h6>
-                          <h5 className="m-b-30 f-w-700">532<span className="text-c-green m-l-10">+1.69%</span></h5>
-                          <div className="progress">
-                            <div className="progress-bar rounded-r-lg bg-red-500" style={{ width: '25%', minWidth: '10px' }}></div>
-                          </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
-                          <h6>Completed Task</h6>
-                          <h5 className="m-b-30 f-w-700">4,569<span className="text-c-red m-l-10">-0.5%</span></h5>
-                          <div className="progress ">
-                            <div className="progress-bar rounded-r-lg bg-blue-500" style={{ width: '65%', minWidth: '10px' }}></div>
-                          </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
-                          <h6>Successful Task</h6>
-                          <h5 className="m-b-30 f-w-700">89%<span className="text-c-green m-l-10">+0.99%</span></h5>
-                          <div className="progress">
-                            <div className="progress-bar rounded-r-lg bg-green-500" style={{ width: '85%', minWidth: '10px' }}></div>
-                          </div>
-                        </div>
-                        <div className="col-xl-3 col-md-6">
-                          <h6>Ongoing Digs</h6>
-                          <h5 className="m-b-30 f-w-700">365<span className="text-c-green m-l-10">+0.35%</span></h5>
-                          <div className="progress">
-                            <div className="progress-bar bg-c-yellow" style={{ width: '45%' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
 
                 {/*Project statustic end */}
               </div>

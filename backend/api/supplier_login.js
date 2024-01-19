@@ -17,16 +17,14 @@ router.post('/supplier_login', (req, res) => {
             return;
         }
         if (results.length === 0) {
-            res.status(401).json({ message: 'Invalid credentials' });
-            console.log("Invalid credent");
-            return;
+            return res.status(200).json({ status: 'not-found', message: 'Password updated successfully' });
         }
         const hashedPassword = results[0].password_hash;
         const isValidPassword = await bcrypt.compare(password, hashedPassword);
         if (!isValidPassword) {
-            res.status(401).json({ message: 'Invalid credentials' });
+            // res.status(401).json({ message: 'Invalid credentials' });
             console.log("Invalid credentials");
-            return;
+            return res.status(200).json({ status: 'invalid', message: 'Password updated successfully' });
         }
         
         const user = {

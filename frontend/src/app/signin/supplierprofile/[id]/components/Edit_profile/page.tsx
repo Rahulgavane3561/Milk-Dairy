@@ -1,12 +1,13 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import Cookies from 'js-cookie';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import styles from './Edit_profile.module.css';
 
 function History() {
-  const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,21 +19,46 @@ function History() {
     image: null,
   });
   const [errors, setErrors] = useState({});
+  const [supplierId, setSupplierId] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(false);
+
+  useEffect(() => {
+
+    const token = Cookies.get('token');
+    const decodedToken = jwtDecode(token);
+    const currentSupplierId = decodedToken.id;
+    setSupplierId(currentSupplierId);
+
+    axios.get(`http://localhost:8086/api/supplie/getsupplier/${currentSupplierId}`)
+      .then((response) => {
+        const { name, email, phone, bank_account, ifsc_code, adhar_number, address, image } = response.data;
+        setFormData({
+          name,
+          email,
+          phone,
+          bankAccount: bank_account,
+          ifscCode: ifsc_code,
+          adharNumber: adhar_number,
+          address,
+          image,
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching supplier data:', error);
+      });
+
+  }, []);
 
   const handleImageChange = (e) => {
-    const image = e.target.files[0];
-    if (image) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(image);
-    } else {
-      // Set a default icon when no image is selected
-      setSelectedImage('path_to_human_icon'); // Replace 'path_to_human_icon' with the URL or path to your human icon
+    // Check if files were selected
+    if (e.target.files.length > 0) {      
+      setFormData({
+        ...formData,
+        image: e.target.files[0], // Update the image in the state with the newly selected file
+      });
     }
   };
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,18 +82,20 @@ function History() {
       form.append('ifscCode', formData.ifscCode);
       form.append('adharNumber', formData.adharNumber);
       form.append('address', formData.address);
-      if (selectedImage) {
-        form.append('image', selectedImage);
-      }
+      form.append('image', formData.image);
 
-      axios.post('your-backend-api-endpoint', form)
+
+      axios.put(`http://localhost:8086/api/supplie/updatesupplier/${supplierId}`, form)
         .then((response) => {
           console.log('Form submitted:', response.data);
-          // Handle successful form submission
+          window.scrollTo(0, 0);
+          setSuccessMessage(true);
+          setTimeout(() => {
+            setSuccessMessage(false);
+          }, 8000);
         })
         .catch((error) => {
           console.error('Error submitting form:', error);
-          // Handle error in form submission
         });
     }
   };
@@ -75,28 +103,23 @@ function History() {
   const validateFormData = (data) => {
     const errors = {};
 
-    // Name validation
     if (!data.name.trim() || data.name.trim().length < 3 || !/^[a-zA-Z ]+$/.test(data.name.trim())) {
       errors.name = 'Name should be at least 3 characters and contain only letters';
     }
 
-    // Email validation
     if (!data.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
       errors.email = 'Please enter a valid email';
     }
 
-    // Phone number validation
     if (!data.phone.trim() || !/^\d{10}$/.test(data.phone.trim())) {
       errors.phone = 'Please enter a valid 10-digit phone number';
     }
 
-    // Bank account validation - Add your custom rules
 
     if (!data.bankAccount.trim()) {
       errors.bankAccount = 'Bank account number is required';
     }
 
-    // IFSC code validation - Add your custom rules
     if (!data.ifscCode.trim()) {
       errors.ifscCode = 'IFSC code is required';
     } else if (!/^[A-Za-z]{4}[0-9]{7}$/.test(data.ifscCode.trim())) {
@@ -113,6 +136,13 @@ function History() {
 
   return (
     <div className={styles.historyContainer}>
+     {successMessage && (
+        <div className={styles.successMessage}>
+          <span>Updated successfully!</span>
+          <button onClick={() => setSuccessMessage(false)}>X</button>
+        </div>
+      )}
+      
       <form className={styles.supplierForm} onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label htmlFor="name">Name:</label>
@@ -198,7 +228,7 @@ function History() {
           />
           {errors.address && <span style={{ color: 'red' }}>{errors.address}</span>}
         </div>
-        
+
         <div className={styles.formGroup}>
           <label htmlFor="image">Image:</label>
           <input

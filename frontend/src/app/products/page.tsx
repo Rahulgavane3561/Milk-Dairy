@@ -1,41 +1,93 @@
-// pages/products.js
+/* eslint-disable @next/next/no-img-element */
+"use client";
 
-import { FaStar } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+
+import { FaRegMoneyBillAlt } from 'react-icons/fa'; // Import the icon
+import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import productsData from './temp';
-import styles from './Products.module.css';
+import Styles from './products.module.css';
+import axios from 'axios';
 
-const Products = () => {
+const Product = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://localhost:8086/api/product/getproducts');
+
+        if (response.data.Status === 'Success') {
+          alert("Success");
+          setData(response.data.Result);
+        } else {
+          setError('Error fetching data');
+        }
+      } catch (error) {
+        setError(`Error sending request: ${error.message}`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div className={styles.products}>
-      <h1>All Products</h1>
-      <div className={styles['product-list']}>
-        {productsData.map((product) => (
-          <div key={product.id} className={styles['product-card']}>
-            <img src="/back.jpg" alt={product.name} className={styles['product-image']} />
-            <div className={styles['product-details']}>
-              <h2 className={styles['product-name']}>{product.name}</h2>
-              <p className={styles.price}>
-                <span className={styles['current-price']}>₹300</span>
-                <span className={styles.discounted}>₹200</span>
-              </p>
-              <p className={styles.reviews}>
-                {[...Array(product.reviews)].map((_, index) => (
-                  <FaStar key={index} className={styles['star-icon']} />
-                ))}
-              </p>
-              <Link href={`/product/${product.id}`}>
-                <li className={`${styles.btn} ${styles['btn-primary']}`}>
-                  View Details <span className={styles['arrow-icon']}>&#8594;</span>
-                </li>
-              </Link>
+    <div className={Styles.productContainer}>
+      <h1 className={Styles.sectionTitle}>Our Products</h1>
+
+      <div className={Styles.productsGrid}>
+        {data.map((product, index) => {
+          const isEven = index % 2 === 0;
+          const cardStyle = isEven ? Styles.productCardEven : Styles.productCardOdd;
+
+          // Calculate discounted price (10% increase)
+          const originalPrice = parseFloat(product.price);
+          const discountedPrice = (originalPrice * 1.1).toFixed(2);
+
+          return (
+            <div key={index} className={`${Styles.productCard} ${cardStyle}`}>
+              <div className={Styles.productImageContainer}>
+                <img
+                  src={`/Productimage/${product.image_link}`}
+                  alt="Milk"
+                  className={Styles.productImage}
+                />
+              </div>
+              <div className={Styles.productDetails}>
+                <h3 className={Styles.productName}>{product.product_name}</h3>
+                <p className={Styles.productDescription}>{product.short_description}</p>
+                <p className={Styles.discountedPrice}>
+                  <span className={Styles.discountIcon}></span>
+                  Actual Price: <span className={`${Styles.Actual} ${Styles.strikeThrough}`}>&#8377;{discountedPrice}</span>
+                </p>
+               
+                
+                {/* Discounted Price */}
+                <p className={Styles.productPrice}>Price: &#8377;{product.price}</p>
+
+                <Link href={`./products/get_product/${product.product_id}`}>
+                  <span className={Styles.buyButton}>
+                    Buy now
+                  </span>
+                </Link>
+                <span className={`${Styles.starRating} m-3`}>
+                  <i className={`${Styles.starFilled} fas fa-star`}></i>
+                  <i className={`${Styles.starFilled} fas fa-star`}></i>
+                  <i className={`${Styles.starFilled} fas fa-star`}></i>
+                  <i className={`${Styles.starFilled} fas fa-star`}></i>
+                  <i className={`${Styles.starEmpty} far fa-star`}></i>
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 };
 
-export default Products;
+export default Product;

@@ -6,12 +6,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { FaHistory, FaSignOutAlt, FaUserCog } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
+import Cookies from 'js-cookie';
 import Sidebar from './Sidebar';
 import { height } from '@fortawesome/free-solid-svg-icons/fa0';
+import { useRouter } from 'next/navigation';
 
 const Layout: React.FC = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,6 +29,11 @@ const Layout: React.FC = ({ children }) => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  const logOut = () => {
+    Cookies.remove("token");
+    router.push('/signin');
+  }
 
   return (
     <div className={`layout-container ${isSmallScreen ? 'small-screen' : ''}`}>
@@ -49,7 +57,7 @@ const Layout: React.FC = ({ children }) => {
               <li><a className="dropdown-item" href="#!"><FaUserCog /> Settings</a></li>
               <li><a className="dropdown-item" href="#!"><FaHistory />Activity Log</a></li>
               <li><hr className="dropdown-divider" /></li>
-              <li><a className="dropdown-item" href="#!"><FaSignOutAlt /> Logout</a></li>
+              <li ><a className="dropdown-item" href="#!" onClick={logOut}><FaSignOutAlt /> Logout</a></li>
             </ul>
           </li>
         </ul>

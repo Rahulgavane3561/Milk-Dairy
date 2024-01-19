@@ -19,8 +19,11 @@ function OrderDetails() {
 
   const handleReceiptClick = (saleId) => {
     // Navigate to the receipt page for the clicked saleId
-    alert(saleId)
-    router.push(`./My_orders/get_reciept/${saleId}}`);
+   // Example of creating a URL with a query parameter
+const url = `./My_orders/get_reciept/${encodeURIComponent(saleId)}`;
+
+    router.push(url)
+
   };
 
 
