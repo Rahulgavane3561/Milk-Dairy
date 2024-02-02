@@ -28,7 +28,6 @@ const Sidebar = () => {
     if (token) {
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.id;
-      alert(userId);
       const response = await axios.get(`http://localhost:8086/api/supplie/getusername/${userId}`);
       const userData = await response.data;
 

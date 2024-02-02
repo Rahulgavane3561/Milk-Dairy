@@ -62,11 +62,7 @@ const Layout: React.FC = ({ children }) => {
           </li>
         </ul>
       </nav>
-      {/* {isSmallScreen && (
-        <button className="toggle-btn" onClick={toggleSidebar}>
-          {isSidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'}
-        </button>
-      )} */}
+      
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <Sidebar />
       </div>

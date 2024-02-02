@@ -11,6 +11,8 @@ function Footer() {
                 <li><a href="#">Raw milk</a></li>
                 <li><a href="#">Cattle feed</a></li>
                 <li><a href="#">Medicine</a></li>
+                <li><a href="/milkcollection/signin">collect</a></li>
+                <li><a href="/admindashboard/">admin page</a></li>
             </ul>
         </div>
         <div className="footer-col">

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { con, upload } = require('../common/dbconnection');
 const bcrypt = require('bcrypt');
-const { sendSMS } = require('../twilio');
+const { sendSMS } = require('../utils/sendmessage');
 
 
 router.post('/tempsupplierregister', upload.single('image'), async (req, res) => {

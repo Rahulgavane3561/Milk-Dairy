@@ -40,7 +40,8 @@ const url = `./My_orders/get_reciept/${encodeURIComponent(saleId)}`;
     // Fetch sales data using Axios
     axios.get(`http://localhost:8086/api/supplier/sales/${supplierId}`)
       .then((response) => {
-        setSalesData(response.data);
+        const sortedSalesData = response.data.sort((a, b) => new Date(b.sale_date) - new Date(a.sale_date));
+      setSalesData(sortedSalesData);
       })
       .catch((error) => {
         alert("error")

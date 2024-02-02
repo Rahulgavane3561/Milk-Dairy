@@ -6,7 +6,7 @@ import { FaCalendarAlt, FaDollarSign, FaEnvelope, FaExclamationCircle, FaGlassWh
 import React, { useEffect, useState } from 'react';
 
 import Cookies from 'js-cookie';
-import Graph from './graph'
+import Graph from './page'
 import Image from 'next/image'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -14,17 +14,7 @@ import styles from "./supplerprofile.module.css"
 
 function page() {
 
-  const dataa = [ 
-    { time: 1, amount: 10 },
-    { time: 2, amount: 20 },
-    { time: 3, amount: 15 },
-    { time: 4, amount: 25 },
-    { time: 5, amount: 30 },
-    // ... (more data)
-  ];
 
-  // const [collectionData, setCollectionData] = useState(null);
-  // const [supplierId, setsupplierId] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [data, setData] = useState(null);
 
