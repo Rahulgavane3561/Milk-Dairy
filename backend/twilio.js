@@ -1,31 +1,55 @@
-const accountSid = 'AC2b6a1014595b41d5e2a2d9c10cd3e964';
-const authToken = '59c7592652371397c7c5b7f6f6229a87';
-const client = require('twilio')(accountSid, authToken);
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const stripe = require("stripe")("sk_test_51OavxzSDboyJWBIQfqPu4djpPzUkJuWDJzGjKFfAveU9MLHex5v6z8RSyNcTsafFvT1U60hh0fHtqfpWL1X2YSx000zy8D5V4a");
 
-// Function to send SMS
-const sendSMS = async (to, message) => {
-    try {
-        const sentMessage = await client.messages.create({
-            body: message,
-            from: '+12055289887', // Your Twilio phone number
-            to: to // The number you want to send the SMS to
-        });
-        console.log('Message sent successfully:', sentMessage.sid);
-        return sentMessage;
-    } catch (error) {
-        console.error('Error sending message:', error);
-        throw error;
-    }
+app.use(express.json());
+app.use(cors());
+
+// Function to generate random data for testing
+const generateRandomData = () => {
+    const randomProductName = `Dish ${Math.floor(Math.random() * 100)}`;
+    const randomImage = "https://example.com/image.jpg"; // Replace with your image URL
+    const randomPrice = Math.floor(Math.random() * 100) + 1; // Replace with your price logic
+    const randomQuantity = Math.floor(Math.random() * 5) + 1;
+
+    return {
+        dish: randomProductName,
+        imgdata: randomImage,
+        price: randomPrice,
+        qnty: randomQuantity,
+    };
 };
 
-// Example usage
-const recipientNumber = '+918105356165'; // Replace this with the recipient's phone number
-const messageBody = 'Hello from Twilio This is Rahul!';
+// checkout api
+app.post("/api/create-checkout-session", async (req, res) => {
+    // Generate static random data for testing
+    const products = Array.from({ length: 3 }, () => generateRandomData());
 
-sendSMS(recipientNumber, messageBody)
-    .then(() => {
-        console.log('SMS sent successfully!');
-    })
-    .catch((error) => {
-        console.error('Failed to send SMS:', error);
+    const lineItems = products.map((product) => ({
+        price_data: {
+            currency: "inr",
+            product_data: {
+                name: product.dish,
+                images: [product.imgdata],
+            },
+            unit_amount: product.price * 100,
+        },
+        quantity: product.qnty,
+    }));
+
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: lineItems,
+        mode: "payment",
+        success_url: "http://localhost:3000/practice/success",
+        cancel_url: "http://localhost:3000/practice/cancel",
     });
+
+    res.json({ id: session.id });
+});
+
+app.listen(7000, () => {
+    console.log("Server started on port 7000");
+});

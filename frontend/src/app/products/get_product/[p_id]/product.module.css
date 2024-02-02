@@ -1,0 +1,113 @@
+._p_qty > span {
+  color: black;
+  margin-right: 15px;
+  font-weight: 500;
+}
+._p_qty .value_button {
+  display: inline-flex;
+  border: 0px solid #ddd;
+  margin: 0px;
+  width: 30px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  background: #fd7f34;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+._p_qty .value_button {
+  border: 0px solid #fe0000;
+  height: 35px;
+  font-size: 20px;
+  font-weight: bold;
+}
+._p_qty .pinput {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #fe0000;
+  border-bottom: 1px solid #fe0000;
+  margin: 0px;
+  width: 50px;
+  height: 35px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+._p-add_cart {
+  margin-left: 0px;
+  margin-bottom: 15px;
+}
+
+.overlay {
+  position: fixed;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment_modal {
+  background: white;
+  width: 70%; /* Set a maximum width for the modal */
+  height: 80%; /* Add scrollbars when content overflows */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.close_button {
+  /* position: absolute; */
+  margin-left: 94%;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bolder;
+  color: white; /* Change the color to your preference */
+}
+
+
+.popup {
+  border: 2px solid #3498db; /* Use a nice color for the border */
+  background-color: #ecf0f1; /* Light background color */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #2c3e50; /* Text color */
+  padding: 20px; /* Add some padding for better spacing */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  width: 50%;
+  max-width: 400px; /* Set a maximum width for larger screens */
+  margin: 0 auto; /* Center the popup horizontally */
+  text-align: center; /* Center text */
+}
+
+.popup p {
+  margin-bottom: 15px; /* Add spacing between the message and button */
+}
+
+.popup button {
+  background-color: #3498db; /* Button background color */
+  color: #ffffff; /* Button text color */
+  padding: 10px 20px; /* Add padding to the button */
+  border: none;
+  border-radius: 5px; /* Rounded button corners */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.popup button:hover {
+  background-color: #2980b9; /* Darker color on hover */
+}

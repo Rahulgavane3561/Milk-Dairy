@@ -1,0 +1,13 @@
+.sidebar-closed {
+    overflow-x: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .sidebar-closed .nav-pills {
+    display: none;
+  }
+  
+  .sidebar-closed .dropdown {
+    display: none;
+  }
+  
